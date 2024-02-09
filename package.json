@@ -1,0 +1,19 @@
+{
+  "name": "crud-api",
+  "version": "1.0.0",
+  "description": "CRUD-api application with Node.js",
+  "main": "src/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start:dev": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RVitaly1978/file-manager.git"
+  },
+  "author": "Vital Raicheu <rvitaly1978@gmail.com>",
+  "license": "MIT"
+}

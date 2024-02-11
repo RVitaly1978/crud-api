@@ -1,14 +1,14 @@
 import { createServer, Server } from 'node:http'
 import { router } from './router'
-import { internalServerErrorResponse } from './helpers'
+import { internalServerErrorResponse, logServerProcessStarted } from './helpers'
 
-const headers = {
+export const headers = {
   'Content-Type': 'application/json',
 }
 
 export const app = (): Server => {
   const server = createServer(async (req, res) => {
-    console.log(`Server started process ${process.pid}`)
+    logServerProcessStarted()
 
     try {
       const { statusCode, response } = await router(req)

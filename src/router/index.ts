@@ -3,13 +3,13 @@ import { HttpResponse, HttpMethod } from '../types'
 import { getUsers, createUser, getUser, updateUser, deleteUser } from '../controllers'
 import {
   notFoundResourceResponse, badRequestResponse, methodNotAllowedResponse,
-  matchBaseUrl, matchValidUserIdUrl, matchInvalidUserIdUrl,
+  matchBaseUrl, matchValidUserIdUrl, matchInvalidUserIdUrl, logServerRouterProcessRequest,
 } from '../helpers'
 
 export const router = async (req: IncomingMessage ): Promise<HttpResponse> => {
   const { method, url } = req
 
-  console.log (`[CRUD-API] Request ${method}: ${url}`)
+  logServerRouterProcessRequest(method, url)
 
   if (matchBaseUrl(url)) {
     switch (method) {

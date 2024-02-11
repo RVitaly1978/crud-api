@@ -14,8 +14,8 @@ const PORT = getPortFromEnv()
 const user: RequiredUser = { username: 'Vitaly', age: 45, hobbies: ['coding'] }
 const updatedUser: RequiredUser = { ...user, username: 'Vitaly R' }
 
-const app = server().listen(PORT, () => {
-  console.log(`Testing server started on port ${PORT}`)
+const app = server().listen(PORT - 1, () => {
+  console.log(`Testing server started on port ${PORT - 1}`)
 })
 
 const request = supertest(app)

@@ -3,7 +3,7 @@ import { HttpResponse, ErrorMessage } from '../types'
 import { UsersDB } from '../database/users'
 import {
   response200, response400, response404,
-  isValidBody, parseBody, getBodyWithAllowedFields, getUserIdFromUrl,
+  isValidBody, parseBody, extractAllowedFields, getUserIdFromUrl,
 } from '../helpers'
 
 export const updateUser = async (req: IncomingMessage): Promise<HttpResponse> => {
@@ -16,7 +16,7 @@ export const updateUser = async (req: IncomingMessage): Promise<HttpResponse> =>
   }
 
   const parsedBody = await parseBody(req)
-  const body = getBodyWithAllowedFields(parsedBody)
+  const body = extractAllowedFields(parsedBody)
 
   if (isValidBody(body)) {
     const user = UsersDB.updateUser(id, body)

@@ -20,7 +20,7 @@ Node.js required version is **20 LTS**
 npm install
 ```
 
-## Create a `.env` file (see `.env.example`) in the root directory with the following content:
+## Create a `.env` file (copy and rename `.env.example`) in the root directory with the following content:
 
 ```
 PORT=4000
@@ -47,14 +47,14 @@ npm run start:multi
 
 ## Test application
 
-***Note:*** Terminate all your processes in split terminals before run test process
-
 ```bash
 npm run test
 npm run test:verbose
 ```
 
 ## Endpoints available
+
+***Note***: **PUT** request should contain body with all required fields for user
 
 ```
 GET     http://localhost:4000/api/users

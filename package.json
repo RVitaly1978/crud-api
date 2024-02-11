@@ -2,7 +2,7 @@
   "name": "crud-api",
   "version": "1.0.0",
   "description": "CRUD-api application with Node.js",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -10,7 +10,7 @@
     "build": "webpack --config webpack.config.js",
     "start:dev": "cross-env NODE_ENV=development nodemon --exec ts-node src/index.ts",
     "start:prod": "cross-env NODE_ENV=production npm run build && node dist/bundle.js",
-    "start:multi": "cross-env NODE_ENV=development nodemon --exec ts-node src/loadBalancer.ts",
+    "start:multi": "cross-env NODE_ENV=development nodemon --exec ts-node src/balancer.ts",
     "test": "jest --silent",
     "test:verbose": "jest --detectOpenHandles",
     "lint": "eslint \"src/**/*.ts\" --fix",

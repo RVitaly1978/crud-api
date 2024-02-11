@@ -1,19 +1,16 @@
 import { IncomingMessage } from 'node:http'
 
-export const parseBody = async (req: IncomingMessage) => {
+export const parseBody = async (req: IncomingMessage): Promise<Record<string, unknown>> => {
   return new Promise((resolve) => {
+    let body = ''
     req.setEncoding('utf8')
-
-    let rawBody = ''
-
-    req.on('data', (chunk: string) => rawBody += chunk)
-
+    req.on('data', (chunk: string) => body += chunk)
     req.on('end', () => {
       try {
-        const body = JSON.parse(rawBody)
-        resolve(body)
+        const parsed = JSON.parse(body) as Record<string, unknown>
+        resolve(parsed)
       } catch {
-        resolve({})
+        resolve({} as Record<string, unknown>)
       }
     })
   })

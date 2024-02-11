@@ -1,10 +1,13 @@
 import { HttpStatusCode } from './enums'
 
-export interface User {
-  id?: string,
+export interface RequiredUser {
   username: string,
   age: number,
   hobbies: string[],
+}
+
+export interface User extends RequiredUser {
+  id: string,
 }
 
 export type HttpResponseError = {

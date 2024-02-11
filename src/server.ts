@@ -1,4 +1,4 @@
-import { createServer, Server } from 'http'
+import { createServer, Server } from 'node:http'
 import { router } from './router'
 import { internalServerErrorResponse } from './helpers'
 

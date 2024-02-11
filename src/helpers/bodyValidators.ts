@@ -1,4 +1,4 @@
-import { User } from '../types'
+import { User, RequiredUser } from '../types'
 
 export const getBodyWithAllowedFields = (body: unknown): Record<string, unknown> => {
   if (typeof body === 'object' && body !== null) {
@@ -8,7 +8,7 @@ export const getBodyWithAllowedFields = (body: unknown): Record<string, unknown>
   return {} as Record<string, unknown>
 }
 
-export const isValidBody = (body: Record<string, unknown> | User): body is User => {
+export const isValidBody = (body: Record<string, unknown> | RequiredUser): body is RequiredUser => {
   const { username, age, hobbies } = body
   return (
     !!username && typeof username === 'string' &&

@@ -1,5 +1,5 @@
-import { randomUUID } from 'crypto'
-import { User} from '../types'
+import { randomUUID } from 'node:crypto'
+import { User, RequiredUser } from '../types'
 
 export class Users {
   private users: User[] = []
@@ -10,20 +10,25 @@ export class Users {
     return this.users
   }
 
+  public deleteUsers () {
+    this.users = []
+  }
+
   public getUser (id: string) {
     return this.users.find(user => user.id === id) || null
   }
 
-  public createUser (user: User) {
+  public createUser (user: RequiredUser) {
     const item: User = { id: randomUUID(), ...user }
     this.users.push(item)
     return item
   }
 
-  public updateUser (id: string, user: User) {
+  public updateUser (id: string, user: RequiredUser) {
     const index = this.users.findIndex(user => user.id === id)
     if (index > -1) {
-      const updated: User = { ...this.getUser(id), ...user }
+      const existed = this.getUser(id) as User
+      const updated: User = { ...existed, ...user }
       this.users.splice(index, 1, updated)
       return updated
     }

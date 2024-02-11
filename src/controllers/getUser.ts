@@ -1,4 +1,4 @@
-import { IncomingMessage } from 'http'
+import { IncomingMessage } from 'node:http'
 import { HttpResponse, ErrorMessage } from '../types'
 import { UsersDB } from '../database/users'
 import { getUserIdFromUrl, response200, response404 } from '../helpers'

@@ -1,4 +1,4 @@
-import { IncomingMessage } from 'http'
+import { IncomingMessage } from 'node:http'
 import { HttpResponse, HttpMethod } from '../types'
 import { getUsers, createUser, getUser, updateUser, deleteUser } from '../controllers'
 import {

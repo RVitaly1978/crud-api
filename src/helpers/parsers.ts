@@ -1,4 +1,4 @@
-import { IncomingMessage } from 'http'
+import { IncomingMessage } from 'node:http'
 
 export const parseBody = async (req: IncomingMessage) => {
   return new Promise((resolve) => {

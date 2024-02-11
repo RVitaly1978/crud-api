@@ -11,7 +11,8 @@
     "start:dev": "cross-env NODE_ENV=development nodemon --exec ts-node src/index.ts",
     "start:prod": "cross-env NODE_ENV=production npm run build && node dist/bundle.js",
     "start:multi": "cross-env NODE_ENV=development nodemon --exec ts-node src/loadBalancer.ts",
-    "test": "jest --detectOpenHandles",
+    "test": "jest --silent",
+    "test:verbose": "jest --detectOpenHandles",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "format": "prettier --write \"src/**/*.ts\""
   },
@@ -36,6 +37,7 @@
     "nodemon": "^3.0.3",
     "prettier": "^3.2.5",
     "supertest": "^6.3.4",
+    "ts-jest": "^29.1.2",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",

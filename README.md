@@ -51,6 +51,7 @@ npm run start:multi
 
 ```bash
 npm run test
+npm run test:verbose
 ```
 
 ## Endpoints available

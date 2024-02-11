@@ -1,36 +1,64 @@
 # CRUD-api
 
-## Running
-
-
-1. Clone repository
+## Clone repository
 
 ```bash
 git clone https://github.com/RVitaly1978/crud-api.git
 ```
 
-2. Checkout to `develop` branch
+## Checkout to `develop` branch
 
 ```bash
 git checkout develop
 ```
 
-3. Install dependencies
+## Install dependencies
+
+Node.js required version is **20 LTS**
 
 ```bash
 npm install
 ```
 
-4. Run program
+## Create a `.env` file (see `.env.example`) in the root directory with the following content:
 
-```bash
-# in develop node
-npm run start:dev
-
-# in production node
-npm run start:prod
+```
+PORT=4000
 ```
 
----
+## Build production application
 
-## Usage (main notes)
+```bash
+npm run build
+```
+
+## Run application
+
+```bash
+# in develop mode
+npm run start:dev
+
+# in production mode
+npm run start:prod
+
+# in multi instances mode
+npm run start:multi
+```
+
+## Test application
+
+***Note:*** Terminate all your processes in split terminals before run test process
+
+```bash
+npm run test
+```
+
+## Endpoints available
+
+```
+GET     http://localhost:4000/api/users
+POST    http://localhost:4000/api/users
+GET     http://localhost:4000/api/users/{id}
+PUT     http://localhost:4000/api/users/{id}
+DELETE  http://localhost:4000/api/users/{id}
+```

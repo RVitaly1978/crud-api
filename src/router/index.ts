@@ -6,7 +6,7 @@ import {
   matchBaseUrl, matchValidUserIdUrl, matchInvalidUserIdUrl, logServerRouterProcessRequest,
 } from '../helpers'
 
-export const router = async (req: IncomingMessage ): Promise<HttpResponse> => {
+export const router = async (req: IncomingMessage ): Promise<HttpResponse | void> => {
   const { method, url } = req
 
   logServerRouterProcessRequest(method, url)

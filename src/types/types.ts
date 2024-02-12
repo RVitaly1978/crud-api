@@ -22,3 +22,9 @@ export interface HttpResponse {
   statusCode: HttpStatusCode,
   response?: HttpResponseError | HttpResponseSuccess
 }
+
+export interface WorkerInnerData {
+  action: string,
+  id?: string,
+  user?: RequiredUser | false,
+}

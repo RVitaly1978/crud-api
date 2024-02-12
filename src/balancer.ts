@@ -1,23 +1,21 @@
 import { createServer, request } from 'node:http'
 import { availableParallelism } from 'node:os'
 import cluster from 'node:cluster'
-import dotenv from 'dotenv'
 import { app, headers } from './server'
+import { dbRouter } from './database/dbRouter'
 import { HttpMethod, HttpStatusCode } from './types'
 import {
   getPortFromEnv, parseBody, internalServerErrorResponse,
   logPrimaryServerProxyRequest, logServerStartedOnPort, logWorkerServerDied
 } from './helpers'
 
-dotenv.config()
-
 const PORT = getPortFromEnv()
 
 const createWorker = (PORT: number) => {
   const worker = cluster.fork({ PORT })
   worker.on('message', (data: string) => {
-    const workerData = JSON.parse(data)
-    console.log(workerData)
+    const response = dbRouter(data)
+    worker.send(JSON.stringify(response))
   })
   return worker
 }
@@ -67,7 +65,7 @@ if (cluster.isPrimary) {
       }
     })
 
-    if (req.method !== HttpMethod.Get) {
+    if (req.method !== HttpMethod.Get && req.method !== HttpMethod.Delete) {
       proxyRequest.write(JSON.stringify(body))
     }
 

@@ -23,3 +23,11 @@ export enum HttpMethod {
   Put = 'PUT',
   Delete = 'DELETE',
 }
+
+export enum WorkerActions {
+  GetUsers = 'GET_USERS',
+  GetUser = 'GET_USER',
+  PostUser = 'POST_USER',
+  PutUser = 'PUT_USER',
+  DeleteUser = 'DELETE_USER',
+}

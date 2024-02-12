@@ -1,14 +1,19 @@
 import cluster from 'node:cluster'
 
-const title = cluster.isPrimary
-  ? '[SERVER]'
-  : `[WORKER SERVER]: ${cluster.worker?.id}: pid ${process.pid}:`
+const ansiCodes = {
+  blue: '\x1b[34m',
+  yellow: '\x1b[33m',
+  end: '\x1b[0m',
+}
 
-const getTitle = (workers: NodeJS.Dict<import("cluster").Worker> | undefined) => {
+export const blue = (str: any) => `${ansiCodes.blue}${str}${ansiCodes.end}`
+export const yellow = (str: any) => `${ansiCodes.yellow}${str}${ansiCodes.end}`
+
+const getTitle = (workers: NodeJS.Dict<import('cluster').Worker> | undefined) => {
   const hasWorkers = workers && Object.keys(workers).length
   return cluster.isPrimary
-  ? hasWorkers ? '[PRIMARY SERVER]' : '[SERVER]'
-  : `[WORKER SERVER]: ${cluster.worker?.id}: pid ${process.pid}:`
+  ? hasWorkers ? blue('[PRIMARY SERVER]') : blue('[SERVER]')
+  : `${yellow('[WORKER SERVER]')}: ${yellow(cluster.worker?.id)}: pid ${process.pid}:`
 }
 
 export const logServerStartedOnPort = (port: number) => {
@@ -27,9 +32,9 @@ export const logServerRouterProcessRequest = (method = '', url = '') => {
 }
 
 export const logPrimaryServerProxyRequest = (method = '', port: number, url = '') => {
-  console.log(`[PRIMARY SERVER] Proxy request [${method}] ${port}${url}`)
+  console.log(`${blue('[PRIMARY SERVER]')} Proxy request [${method}] ${port}${url}`)
 }
 
 export const logWorkerServerDied = (id: number, pid: number | undefined) => {
-  console.log(`[WORKER SERVER] ${id}: pid ${pid}: Died`)
+  console.log(`${yellow('[WORKER SERVER]')} ${yellow(id)}: pid ${pid}: Died`)
 }

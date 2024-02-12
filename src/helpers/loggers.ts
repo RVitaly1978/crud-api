@@ -6,8 +6,8 @@ const ansiCodes = {
   end: '\x1b[0m',
 }
 
-export const blue = (str: any) => `${ansiCodes.blue}${str}${ansiCodes.end}`
-export const yellow = (str: any) => `${ansiCodes.yellow}${str}${ansiCodes.end}`
+export const blue = (str: string | number | undefined) => `${ansiCodes.blue}${str}${ansiCodes.end}`
+export const yellow = (str: string | number | undefined) => `${ansiCodes.yellow}${str}${ansiCodes.end}`
 
 const getTitle = (workers: NodeJS.Dict<import('cluster').Worker> | undefined) => {
   const hasWorkers = workers && Object.keys(workers).length

@@ -20,36 +20,26 @@ export const badRequestResponse: HttpResponse = {
   response: { error: ErrorMessage.InvalidUserId }
 }
 
-export const response200 = (data: User | User[]): HttpResponse => {
-  return {
-    statusCode: HttpStatusCode.Ok,
-    response: { data },
-  }
-}
+export const response200 = (data: User | User[]): HttpResponse => ({
+  statusCode: HttpStatusCode.Ok,
+  response: { data },
+})
 
-export const response201 = (data: User): HttpResponse => {
-  return {
-    statusCode: HttpStatusCode.Created,
-    response: { data },
-  }
-}
+export const response201 = (data: User): HttpResponse => ({
+  statusCode: HttpStatusCode.Created,
+  response: { data },
+})
 
-export const response204 = (): HttpResponse => {
-  return {
-    statusCode: HttpStatusCode.NoContent,
-  }
-}
+export const response204 = (): HttpResponse => ({
+  statusCode: HttpStatusCode.NoContent,
+})
 
-export const response400 = (error: string): HttpResponse => {
-  return {
-    statusCode: HttpStatusCode.BadRequest,
-    response: { error },
-  }
-}
+export const response400 = (error: string): HttpResponse => ({
+  statusCode: HttpStatusCode.BadRequest,
+  response: { error },
+})
 
-export const response404 = (error: string): HttpResponse => {
-  return {
-    statusCode: HttpStatusCode.NotFound,
-    response: { error },
-  }
-}
+export const response404 = (error: string): HttpResponse => ({
+  statusCode: HttpStatusCode.NotFound,
+  response: { error },
+})

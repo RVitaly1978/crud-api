@@ -1,8 +1,7 @@
 import cluster from 'node:cluster'
 import { createServer, Server } from 'node:http'
-import { router } from './router'
-import { workerRouter } from './workers'
-import { internalServerErrorResponse, logServerProcessStarted } from './helpers'
+import { router, workerRouter } from '../router'
+import { internalServerErrorResponse, logServerProcessStarted } from '../helpers'
 
 export const headers = {
   'Content-Type': 'application/json',

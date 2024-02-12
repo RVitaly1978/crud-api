@@ -1,5 +1,5 @@
 import supertest from 'supertest'
-import { app as server } from '../server'
+import { app as server } from '../servers'
 import { UsersDB } from '../database/users'
 import { getPortFromEnv, matchUuid, baseUrl, logTestingServerStartedOnPort } from '../helpers'
 import {

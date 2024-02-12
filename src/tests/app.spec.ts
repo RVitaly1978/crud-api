@@ -1,21 +1,19 @@
 import supertest from 'supertest'
-import dotenv from 'dotenv'
 import { app as server } from '../server'
 import { UsersDB } from '../database/users'
-import { getPortFromEnv, matchUuid, baseUrl } from '../helpers'
+import { getPortFromEnv, matchUuid, baseUrl, logTestingServerStartedOnPort } from '../helpers'
 import {
   User, RequiredUser,
   HttpStatusCode, HttpResponseError, HttpResponseSuccess, ErrorMessage,
 } from '../types'
 
-dotenv.config()
 const PORT = getPortFromEnv()
 
 const user: RequiredUser = { username: 'Vitaly', age: 45, hobbies: ['coding'] }
 const updatedUser: RequiredUser = { ...user, username: 'Vitaly R' }
 
 const app = server().listen(PORT - 1, () => {
-  console.log(`Testing server started on port ${PORT - 1}`)
+  logTestingServerStartedOnPort(PORT - 1)
 })
 
 const request = supertest(app)

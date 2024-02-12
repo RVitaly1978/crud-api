@@ -1,24 +1,11 @@
 import cluster from 'node:cluster'
-import { createServer, Server, IncomingMessage } from 'node:http'
+import { createServer, Server } from 'node:http'
 import { router } from './router'
-import { internalServerErrorResponse, logServerProcessStarted, parseMessageFromPrimary } from './helpers'
-import { HttpResponse } from './types'
+import { workerRouter } from './workers'
+import { internalServerErrorResponse, logServerProcessStarted } from './helpers'
 
 export const headers = {
   'Content-Type': 'application/json',
-}
-
-const workerRouter = async (req: IncomingMessage): Promise<HttpResponse> => {
-  const promise: Promise<HttpResponse> = new Promise((resolve) => {
-    process.on('message', (data: string) => {
-      const result = parseMessageFromPrimary(data)
-      resolve(result)
-    })
-  })
-  const result = await router(req)
-  return result
-    ? new Promise((resolve) => resolve(result))
-    : promise
 }
 
 export const app = (): Server => {

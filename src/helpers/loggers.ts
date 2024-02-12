@@ -38,3 +38,7 @@ export const logPrimaryServerProxyRequest = (method = '', port: number, url = ''
 export const logWorkerServerDied = (id: number, pid: number | undefined) => {
   console.log(`${yellow('[WORKER SERVER]')} ${yellow(id)}: pid ${pid}: Died`)
 }
+
+export const logTestingServerStartedOnPort = (port: number) => {
+  console.log(`${blue('[TESTING SERVER]')} Started on port ${port}`)
+}

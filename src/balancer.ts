@@ -1,9 +1,8 @@
 import { createServer, request } from 'node:http'
-import { availableParallelism } from 'node:os'
 import cluster from 'node:cluster'
 import { app, headers } from './server'
-import { dbRouter } from './database/dbRouter'
 import { HttpMethod, HttpStatusCode } from './types'
+import { createWorker, createWorkers, nextWorker } from './workers'
 import {
   getPortFromEnv, parseBody, internalServerErrorResponse,
   logPrimaryServerProxyRequest, logServerStartedOnPort, logWorkerServerDied
@@ -11,30 +10,19 @@ import {
 
 const PORT = getPortFromEnv()
 
-const createWorker = (PORT: number) => {
-  const worker = cluster.fork({ PORT })
-  worker.on('message', (data: string) => {
-    const response = dbRouter(data)
-    worker.send(JSON.stringify(response))
-  })
-  return worker
-}
-
 if (cluster.isPrimary) {
-  const numWorkers = availableParallelism() - 1
   const workersStartPort = PORT + 1
   let currentWorker = 0
 
-  const workers = Array(numWorkers).fill(null).map((_, i) => createWorker(workersStartPort + i))
+  createWorkers(workersStartPort)
 
-  cluster.on('exit', (worker, code, signal) => {
+  cluster.on('exit', (worker) => {
     logWorkerServerDied(worker.id, worker.process.pid)
-    const reopened = createWorker(workersStartPort + worker.id)
-    workers.splice(worker.id - 1, 1, reopened)
+    createWorker(PORT + worker.id)
   })
 
   const primaryServer = createServer(async (req, res) => {
-    currentWorker = currentWorker === numWorkers - 1 ? 0 : currentWorker + 1
+    currentWorker = nextWorker(currentWorker)
 
     logPrimaryServerProxyRequest(req.method, workersStartPort + currentWorker, req.url)
 

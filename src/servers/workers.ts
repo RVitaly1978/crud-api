@@ -24,7 +24,9 @@ export const createWorker = (PORT: number) => {
 }
 
 export const createWorkers = (startPort: number) => {
-  Array(numWorkers).fill(null).map((_, i) => createWorker(startPort + i))
+  Array(numWorkers)
+    .fill(null)
+    .map((_, i) => createWorker(startPort + i))
 
   cluster.on('exit', (worker) => {
     logWorkerServerDied(worker.id, worker.process.pid)

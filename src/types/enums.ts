@@ -4,7 +4,7 @@ export enum ErrorMessage {
   ResourceNotExist = 'Requested resource is not found.',
   UserNotExist = 'Requested user does not exist.',
   InvalidBody = 'Request body does not contain required fields (username: string, age: number, hobbies: string[])',
-  InvalidUserId = 'Requested user id is not valid'
+  InvalidUserId = 'Requested user id is not valid',
 }
 
 export enum HttpStatusCode {

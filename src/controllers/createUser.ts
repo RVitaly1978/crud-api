@@ -1,10 +1,23 @@
 import cluster from 'node:cluster'
 import { IncomingMessage } from 'node:http'
-import { HttpResponse, ErrorMessage, WorkerActions, RequiredUser } from '../types'
+import {
+  HttpResponse,
+  ErrorMessage,
+  WorkerActions,
+  RequiredUser,
+} from '../types'
 import { UsersDB } from '../database/users'
-import { response201, response400, parseBody, extractValidUserOrFalse, sendDataToPrimary } from '../helpers'
+import {
+  response201,
+  response400,
+  parseBody,
+  extractValidUserOrFalse,
+  sendDataToPrimary,
+} from '../helpers'
 
-export const createUser = async (req: IncomingMessage): Promise<HttpResponse | void> => {
+export const createUser = async (
+  req: IncomingMessage
+): Promise<HttpResponse | void> => {
   const parsedBody = await parseBody(req)
   const userOrFalse = extractValidUserOrFalse(parsedBody)
 

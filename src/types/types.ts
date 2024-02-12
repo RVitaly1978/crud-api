@@ -1,17 +1,17 @@
 import { HttpStatusCode } from './enums'
 
 export interface RequiredUser {
-  username: string,
-  age: number,
-  hobbies: string[],
+  username: string
+  age: number
+  hobbies: string[]
 }
 
 export interface User extends RequiredUser {
-  id: string,
+  id: string
 }
 
 export type HttpResponseError = {
-  error: string,
+  error: string
 }
 
 export type HttpResponseSuccess = {
@@ -19,12 +19,12 @@ export type HttpResponseSuccess = {
 }
 
 export interface HttpResponse {
-  statusCode: HttpStatusCode,
+  statusCode: HttpStatusCode
   response?: HttpResponseError | HttpResponseSuccess
 }
 
 export interface WorkerInnerData {
-  action: string,
-  id?: string,
-  user?: RequiredUser | false,
+  action: string
+  id?: string
+  user?: RequiredUser | false
 }

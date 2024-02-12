@@ -2,7 +2,11 @@ import { createServer, request } from 'node:http'
 import { headers } from '../servers/singleServer'
 import { HttpMethod, HttpStatusCode } from '../types'
 import { nextWorker } from '../servers'
-import { parseBody, internalServerErrorResponse, logPrimaryServerProxyRequest } from '../helpers'
+import {
+  parseBody,
+  internalServerErrorResponse,
+  logPrimaryServerProxyRequest,
+} from '../helpers'
 
 export const createPrimaryServer = (workersStartPort: number) => {
   let currentWorker = 0
@@ -10,7 +14,11 @@ export const createPrimaryServer = (workersStartPort: number) => {
   const primaryServer = createServer(async (req, res) => {
     currentWorker = nextWorker(currentWorker)
 
-    logPrimaryServerProxyRequest(req.method, workersStartPort + currentWorker, req.url)
+    logPrimaryServerProxyRequest(
+      req.method,
+      workersStartPort + currentWorker,
+      req.url
+    )
 
     const options = {
       port: workersStartPort + currentWorker,

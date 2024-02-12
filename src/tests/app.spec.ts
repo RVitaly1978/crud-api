@@ -1,10 +1,19 @@
 import supertest from 'supertest'
 import { app as server } from '../servers'
 import { UsersDB } from '../database/users'
-import { getPortFromEnv, matchUuid, baseUrl, logTestingServerStartedOnPort } from '../helpers'
 import {
-  User, RequiredUser,
-  HttpStatusCode, HttpResponseError, HttpResponseSuccess, ErrorMessage,
+  getPortFromEnv,
+  matchUuid,
+  baseUrl,
+  logTestingServerStartedOnPort,
+} from '../helpers'
+import {
+  User,
+  RequiredUser,
+  HttpStatusCode,
+  HttpResponseError,
+  HttpResponseSuccess,
+  ErrorMessage,
 } from '../types'
 
 const PORT = getPortFromEnv()
@@ -18,7 +27,10 @@ const app = server().listen(PORT - 1, () => {
 
 const request = supertest(app)
 
-let response: { body: HttpResponseError | HttpResponseSuccess, statusCode: HttpStatusCode }
+let response: {
+  body: HttpResponseError | HttpResponseSuccess
+  statusCode: HttpStatusCode
+}
 let userId: string
 let userId1: string
 let userId2: string
@@ -56,7 +68,9 @@ describe('CRUD service API tests', () => {
     test('PUT:/api/users/{userId}. Should update and return user', async () => {
       response = await request.put(`${baseUrl}/${userId}`).send(updatedUser)
       expect(response.statusCode).toBe(HttpStatusCode.Ok)
-      expect(response.body).toMatchObject({ data: { ...updatedUser, id: userId } })
+      expect(response.body).toMatchObject({
+        data: { ...updatedUser, id: userId },
+      })
     })
 
     test('DELETE:/api/users/{userId}. Should delete user and return statusCode 204', async () => {
@@ -75,13 +89,17 @@ describe('CRUD service API tests', () => {
     test('PUT:/api/users. Should return statusCode 405 and MethodNotAllowed error message', async () => {
       response = await request.put('/api/users').send(user)
       expect(response.statusCode).toBe(HttpStatusCode.MethodNotAllowed)
-      expect(response.body).toMatchObject({ error: ErrorMessage.MethodNotAllowed })
+      expect(response.body).toMatchObject({
+        error: ErrorMessage.MethodNotAllowed,
+      })
     })
 
     test('GET:/api/private/users. Should return statusCode 404 and ResourceNotExist error message', async () => {
       response = await request.get('/api/private/users')
       expect(response.statusCode).toBe(HttpStatusCode.NotFound)
-      expect(response.body).toMatchObject({ error: ErrorMessage.ResourceNotExist })
+      expect(response.body).toMatchObject({
+        error: ErrorMessage.ResourceNotExist,
+      })
     })
 
     test('GET:/api/users/{invalidId}. Should return statusCode 400 and InvalidUserId error message', async () => {
@@ -91,7 +109,9 @@ describe('CRUD service API tests', () => {
     })
 
     test('GET:/api/users/{non-existedId}. Should return statusCode 404 and UserNotExist error message', async () => {
-      response = await request.get(`${baseUrl}/9d3d40dd-1464-4aa6-8a4c-a69e72086c5f`)
+      response = await request.get(
+        `${baseUrl}/9d3d40dd-1464-4aa6-8a4c-a69e72086c5f`
+      )
       expect(response.statusCode).toBe(HttpStatusCode.NotFound)
       expect(response.body).toMatchObject({ error: ErrorMessage.UserNotExist })
     })
@@ -126,13 +146,20 @@ describe('CRUD service API tests', () => {
     test('GET:/api/users. Should get list with two users', async () => {
       response = await request.get(baseUrl)
       expect(response.statusCode).toBe(HttpStatusCode.Ok)
-      expect(response.body).toMatchObject({ data: [{ ...user, id: userId1 }, { ...user, id: userId2 }] })
+      expect(response.body).toMatchObject({
+        data: [
+          { ...user, id: userId1 },
+          { ...user, id: userId2 },
+        ],
+      })
     })
 
     test('PUT:/api/users/{userId}. Should update and return user 1', async () => {
       response = await request.put(`${baseUrl}/${userId1}`).send(updatedUser)
       expect(response.statusCode).toBe(HttpStatusCode.Ok)
-      expect(response.body).toMatchObject({ data: { ...updatedUser, id: userId1 } })
+      expect(response.body).toMatchObject({
+        data: { ...updatedUser, id: userId1 },
+      })
     })
 
     test('DELETE:/api/users/{userId}. Should delete user 2 and return statusCode 204', async () => {
@@ -143,7 +170,9 @@ describe('CRUD service API tests', () => {
     test('GET:/api/users. Should get list with one updated user 1', async () => {
       response = await request.get(baseUrl)
       expect(response.statusCode).toBe(HttpStatusCode.Ok)
-      expect(response.body).toMatchObject({ data: [{ ...updatedUser, id: userId1 }] })
+      expect(response.body).toMatchObject({
+        data: [{ ...updatedUser, id: userId1 }],
+      })
     })
   })
 })

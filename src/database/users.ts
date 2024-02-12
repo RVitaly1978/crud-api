@@ -4,28 +4,28 @@ import { User, RequiredUser } from '../types'
 export class Users {
   private users: User[] = []
 
-  constructor () {}
+  constructor() {}
 
-  public getUsers () {
+  public getUsers() {
     return this.users
   }
 
-  public deleteUsers () {
+  public deleteUsers() {
     this.users = []
   }
 
-  public getUser (id: string) {
-    return this.users.find(user => user.id === id) || null
+  public getUser(id: string) {
+    return this.users.find((user) => user.id === id) || null
   }
 
-  public createUser (user: RequiredUser) {
+  public createUser(user: RequiredUser) {
     const item: User = { id: randomUUID(), ...user }
     this.users.push(item)
     return item
   }
 
-  public updateUser (id: string, user: RequiredUser) {
-    const index = this.users.findIndex(user => user.id === id)
+  public updateUser(id: string, user: RequiredUser) {
+    const index = this.users.findIndex((user) => user.id === id)
     if (index > -1) {
       const existed = this.getUser(id) as User
       const updated: User = { ...existed, ...user }
@@ -35,8 +35,8 @@ export class Users {
     return null
   }
 
-  deleteUser (id: string) {
-    const index = this.users.findIndex(user => user.id === id)
+  deleteUser(id: string) {
+    const index = this.users.findIndex((user) => user.id === id)
     if (index > -1) {
       this.users.splice(index, 1)
       return true

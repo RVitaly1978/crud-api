@@ -1,9 +1,14 @@
 import { IncomingMessage } from 'node:http'
-import { internalServerErrorResponse, parseMessageFromPrimary } from '../helpers'
+import {
+  internalServerErrorResponse,
+  parseMessageFromPrimary,
+} from '../helpers'
 import { router } from './router'
 import { HttpResponse } from '../types'
 
-export const workerRouter = async (req: IncomingMessage): Promise<HttpResponse> => {
+export const workerRouter = async (
+  req: IncomingMessage
+): Promise<HttpResponse> => {
   const promise: Promise<HttpResponse> = new Promise((resolve) => {
     process.on('message', (data: string) => {
       const result = parseMessageFromPrimary(data)
@@ -16,7 +21,5 @@ export const workerRouter = async (req: IncomingMessage): Promise<HttpResponse> 
 
   const result = await router(req)
 
-  return result
-    ? new Promise((resolve) => resolve(result))
-    : promise
+  return result ? new Promise((resolve) => resolve(result)) : promise
 }

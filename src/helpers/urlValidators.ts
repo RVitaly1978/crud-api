@@ -9,7 +9,8 @@ export const matchBaseUrl = (url = ''): boolean => baseUrlRegex.test(url)
 
 export const matchValidUserIdUrl = (url = ''): boolean => uuidUrlRegex.test(url)
 
-export const matchInvalidUserIdUrl = (url = ''): boolean => invalidIdUrlRegex.test(url)
+export const matchInvalidUserIdUrl = (url = ''): boolean =>
+  invalidIdUrlRegex.test(url)
 
 export const matchUuid = (uuid = ''): boolean => uuidRegex.test(uuid)
 
